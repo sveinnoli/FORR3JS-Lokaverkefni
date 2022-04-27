@@ -1,0 +1,11 @@
+:root {
+    --container-padding: 0 10px;
+    --xl-container: 1600px;
+    --main-bg-color: #1b4a64;
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
