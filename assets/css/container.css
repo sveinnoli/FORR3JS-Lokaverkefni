@@ -1,7 +1,6 @@
 .container {
     width: var(--xl-container);
     padding: 0 var(--container-padding);
-    background: var(--main-bg-color);
     margin: 0 auto;
     min-height: 100vh;
 }
