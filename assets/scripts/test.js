@@ -22,3 +22,8 @@ fetch(endpoint).then(results => {
 }).catch(err => {
     console.log(err);
 })
+
+
+// slider.addEventListener("input", (e) => {
+//     output.innerText = e.target.value;
+// })

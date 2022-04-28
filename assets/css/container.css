@@ -5,7 +5,25 @@
     min-height: 100vh;
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1620px) {
+    .container {
+        width: 1280px
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .container {
+        width: 1024px;
+    }
+}
+
+@media screen and (max-width: 1044px) {
+    .container {
+        width: 768px;
+    }
+}
+
+@media screen and (max-width: 788px) {
     .container {
         width: auto;
     }

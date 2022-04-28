@@ -2,6 +2,12 @@
     --container-padding: 0 10px;
     --xl-container: 1600px;
     --main-bg-color: #1b4a64;
+    --secondary-bg-color: #313444;
+    --xl-breakpoint: 1620px;
+    --lg-breakpoint: 1300px;
+    --md-breakpoint: 1044px;
+    --sm-breakpoint: 788px;
+    --xsm-breakpoint: 540px;
 }
 
 * {
@@ -11,5 +17,19 @@
 }
 
 body {
-    background: var(--main-bg-color);
+    background-image: url("/assets/images/mainBackground.svg");
+    background-color: var(--main-bg-color);
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+    font-weight: 400;
+    line-height: 1.35;
+    font-family: monospace;
+    
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    display: block;
 }
