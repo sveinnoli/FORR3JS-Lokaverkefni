@@ -1,6 +1,6 @@
 .container {
     width: var(--xl-container);
-    padding: 0 var(--container-padding);
+    padding: var(--container-padding);
     margin: 0 auto;
     min-height: 100vh;
 }

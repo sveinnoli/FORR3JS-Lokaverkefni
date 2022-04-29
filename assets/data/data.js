@@ -3,7 +3,7 @@ export const data = [
        "image":{
           "url":"./assets/images/dos2.jpg",
           "name":"Divinity Original Sin ",
-          "author":"peter",
+          "author":"Lucian",
           "price": 5000,
           "date" : ""
        }
@@ -12,7 +12,7 @@ export const data = [
        "image":{
           "url":"./assets/images/nierautomata.jpg",
           "name":"Nier automata",
-          "author":"brian",
+          "author":"2B",
           "price": 1000,
           "date" : ""
        }
@@ -21,7 +21,7 @@ export const data = [
        "image":{
           "url":"./assets/images/witcher3medallion.jpg",
           "name":"Witcher 3 Medallion",
-          "author":"joe",
+          "author":"Geralt",
           "price": 10000,
           "date" : ""
        }
@@ -30,7 +30,7 @@ export const data = [
        "image":{
           "url":"./assets/images/cyberpunk.jpg",
           "name":"Cyberpunk",
-          "author":"Launa",
+          "author":"Valerie",
           "price": 2500,
           "date" : ""
        }
@@ -39,7 +39,7 @@ export const data = [
        "image":{
           "url":"./assets/images/witcher3.jpg",
           "name":"Witcher",
-          "author":"sigma",
+          "author":"Dandelion",
           "price": 1450,
           "date" : ""
        }

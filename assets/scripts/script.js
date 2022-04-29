@@ -48,7 +48,7 @@ function createTemplate(data) {
         fragment.innerHTML = "";
         data.map(item => {
             if (item.image.url) {
-                fragment.innerHTML += (
+                fragment.innerHTML += ( // Replace with dom methods later
                 `<div class="item">
                         <div class="item--title">${item.image.name}</div>
                         <div class="item--image-container"><img src="${item.image.url}" class="item--image"></div>
@@ -59,7 +59,7 @@ function createTemplate(data) {
                             </div>
                             <div class="item--information-data">
                                 <p>Price</p>
-                                <p>${item.image.price}</p>
+                                <p>€${item.image.price}</p>
                             </div>
                         </div>
                     </div>`)
