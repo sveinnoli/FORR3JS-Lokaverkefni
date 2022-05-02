@@ -11,7 +11,7 @@
 
 .item--title {
     text-align: center;
-    background: var(--secondary-bg-color);
+    background: var(--purple-linear-color);
     padding: 4px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
@@ -40,7 +40,7 @@
 .item--information-data {
     display:flex;
     border: 1px solid black;
-    background: var(--secondary-bg-color);
+    background: var(--purple-linear-color);
     text-overflow:ellipsis;
 }
 
@@ -62,7 +62,7 @@
 }
 
 .item--information-data > p:nth-child(2) {
-    background-color: var(--secondary-bg-color);
+    background-color: var(--purple-linear-color);
     opacity: 0.75;
     font-weight: bold;
     color:goldenrod;

@@ -13,7 +13,24 @@
         <div class="control__panel">
             <div class="panel__search">
                 <!-- Here we search for images by some metadata -->
+                <input type="text" class="search" placeholder="Search for an image">
+                <!-- Need to add a dropdown to filter what attribute the user wishes to search by -->
             </div>
+            <div class="panel__price-wrapper">
+                <div class="range__value-wrapper">
+                    <div class="range__values">    
+                        <span>€<span class="value-min">0</span></span>
+                        <span>&dash;</span>
+                        <span class="value-max">100</span>
+                    </div>
+                </div>
+                <div class="panel__price-range">
+                    <div class="range__slider-track"></div>
+                    <input type="range" class="slider-min" min="0" max="100" step="5" value="0">
+                    <input type="range" class="slider-max" min="0" max="100" step="5" value="100">
+                </div>
+            </div>
+            
             <div class="panel__filter">
                 <!-- Here we have our filters for filtering certain images -->
             </div>
@@ -21,14 +38,9 @@
         <!-- Control end -->
 
         <!-- Gallery start -->
-        <div class="gallery">
-            
-        </div>
+        <div class="gallery"></div>
         <!-- Gallery end -->
     </div>
-    
-    <!-- <input type="range" min="0" max="100" step="5" name="testSlider" id="someslider">
-    <output></output> -->
     <script type="module" src="./assets/scripts/script.js" defer=""></script>
 </body>
 </html>

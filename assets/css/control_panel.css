@@ -1,0 +1,121 @@
+/* Control panel wrapper */
+.control__panel {
+
+}
+
+/* Search */
+.panel__search {
+}
+
+.panel__search input {
+
+}
+
+
+/* Price range */
+.panel__price-wrapper {
+}
+
+.panel__price-range {
+    position: relative;
+    padding: 10px;
+    /* border: 2px solid black;   */
+}
+
+.panel__price-range input[type="range"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    outline: none;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+
+
+.range__slider-track {
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1000;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    height: 5px;
+}
+input[type="range"]::-moz-range-track {
+    -moz-appearance: none;
+    height: 5px;
+}
+input[type="range"]::-ms-track {
+    appearance: none;
+    height: 5px;
+}
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 1.7em;
+    width: 1.7em;
+    background-color: var(--alt3-bg-color);
+    cursor: pointer;
+    margin-top: -9px;
+    pointer-events: auto;
+    border-radius: 50%;
+}
+input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 1.7em;
+    width: 1.7em;
+    background-color: var(--alt3-bg-color);
+    cursor: pointer;
+    border-radius: 50%;
+    pointer-events: auto;
+}
+input[type="range"]::-ms-thumb {
+    appearance: none;
+    height: 1.7em;
+    width: 1.7em;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: var(--alt3-bg-color);
+    pointer-events: auto;
+}
+
+/* Slider values */
+.range__value-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.range__values {
+    background: #4e7279;
+    color: white;
+    padding: 3px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+
+
+/* Filter */
+.panel__filter {
+
+}
