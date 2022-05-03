@@ -4,14 +4,14 @@
     --main-bg-color: #1b4a64;
     --secondary-bg-color: #313444;
     --alt3-bg-color: #3b284f;
-
+    --light-blue: lightskyblue;
     --black-color-1: #161616;
     --purple-color-1: #9147FF;
     --purple-linear-color: linear-gradient(to top right, rgba(22,22,22,0.8), 50%, rgba(82,42,97,0.8));
     
     
 
-
+    --xxl-breakpoint: 1920px;
     --xl-breakpoint: 1620px;
     --lg-breakpoint: 1300px;
     --md-breakpoint: 1044px;
@@ -35,7 +35,7 @@ body {
     line-height: 1.35;
     font-family: monospace;
     overflow-y: auto;
-    
+    color: white;
 }
 
 img {
@@ -46,4 +46,17 @@ img {
 
 .invisible {
     display: none !important;
+}
+
+.flex-wrapper {
+    display:flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+
+@media screen and (max-width: 1300px) {
+    .flex-wrapper {
+        display:inherit;
+    }
 }

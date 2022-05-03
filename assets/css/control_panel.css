@@ -1,14 +1,34 @@
 /* Control panel wrapper */
 .control__panel {
+    background: var(--purple-linear-color);
+    height: fit-content;
+    flex: 15%;
+}
 
+.control__panel >:first-child {
+    border-top: none !important;
+}
+
+.control__panel > * {
+    border-top: 1px solid black;
+    padding: 10px 0;
 }
 
 /* Search */
 .panel__search {
+    display:flex; 
+    justify-content: center;
+    align-items: center;
 }
 
 .panel__search input {
+    outline: none !important;
+    padding: 5px;
+    border: 2px solid black;
+}
 
+.panel__search input:focus {
+    border: 2px solid var(--light-blue);
 }
 
 
@@ -19,7 +39,7 @@
 .panel__price-range {
     position: relative;
     padding: 10px;
-    /* border: 2px solid black;   */
+    margin: 0 10px;
 }
 
 .panel__price-range input[type="range"] {
@@ -34,6 +54,7 @@
     bottom: 0;
     left: 0;
     right: 0;
+    z-index: 11;
     background-color: transparent;
     pointer-events: none;
 }
@@ -50,7 +71,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: -1000;
+    z-index: 10;
     border-radius: 5px;
 }
 
@@ -104,7 +125,7 @@ input[type="range"]::-ms-thumb {
 }
 
 .range__values {
-    background: #4e7279;
+    background: var(--purple-linear-color);
     color: white;
     padding: 3px;
     font-size: 14px;
@@ -113,6 +134,14 @@ input[type="range"]::-ms-thumb {
 }
 
 
+/* Calendar */
+
+.panel__calendar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
 
 
 /* Filter */

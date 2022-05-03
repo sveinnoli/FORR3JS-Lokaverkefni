@@ -5,7 +5,7 @@ export const data = [
           "name":"Divinity Original Sin ",
           "author":"Lucian",
           "price": 5000,
-          "date" : ""
+          "date" : "2022-05-29"
        }
     },
     {
@@ -14,7 +14,7 @@ export const data = [
           "name":"Nier automata",
           "author":"2B",
           "price": 1000,
-          "date" : ""
+          "date" : "2022-05-16"
        }
     },
     {
@@ -23,7 +23,7 @@ export const data = [
           "name":"Witcher 3 Medallion",
           "author":"Geralt",
           "price": 10000,
-          "date" : ""
+          "date" : "2022-05-20"
        }
     },
     {
@@ -32,7 +32,7 @@ export const data = [
           "name":"Cyberpunk",
           "author":"Valerie",
           "price": 2500,
-          "date" : ""
+          "date" : "2022-05-01"
        }
     },
     {
@@ -41,7 +41,7 @@ export const data = [
           "name":"Witcher",
           "author":"Dandelion",
           "price": 1450,
-          "date" : ""
+          "date" : "2022-05-13"
        }
-    }
+    },
  ]

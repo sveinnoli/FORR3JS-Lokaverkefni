@@ -6,41 +6,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./assets/css/master.css">
     <title>Gallery App</title>
+    <script type="module" src="./assets/scripts/script.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <!-- Control start -->
-        <div class="control__panel">
-            <div class="panel__search">
-                <!-- Here we search for images by some metadata -->
-                <input type="text" class="search" placeholder="Search for an image">
-                <!-- Need to add a dropdown to filter what attribute the user wishes to search by -->
-            </div>
-            <div class="panel__price-wrapper">
-                <div class="range__value-wrapper">
-                    <div class="range__values">    
-                        <span>€<span class="value-min">0</span></span>
-                        <span>&dash;</span>
-                        <span class="value-max">100</span>
+        <div class="flex-wrapper">
+            <!-- Control start -->
+            <div class="control__panel">
+                <div class="panel__search">
+                    <!-- Here we search for images by some metadata -->
+                    <input type="text" class="search" placeholder="Search for an image">
+                    <!-- Need to add a dropdown to filter what attribute the user wishes to search by -->
+                </div>
+                <div class="panel__price-wrapper">
+                    <div class="range__value-wrapper">
+                        <div class="range__values">    
+                            <span>€<span class="value-min">0</span></span>
+                            <span>&dash;</span>
+                            <span class="value-max">100</span>
+                        </div>
+                    </div>
+                    <div class="panel__price-range">
+                        <div class="range__slider-track"></div>
+                        <input type="range" class="slider-min" min="0" max="100" step="5" value="0">
+                        <input type="range" class="slider-max" min="0" max="100" step="5" value="100">
                     </div>
                 </div>
-                <div class="panel__price-range">
-                    <div class="range__slider-track"></div>
-                    <input type="range" class="slider-min" min="0" max="100" step="5" value="0">
-                    <input type="range" class="slider-max" min="0" max="100" step="5" value="100">
+
+                <div class="panel__calendar">
+                    <input class ="panel__calendar-start" type="date" name="dateSelector">
+                    <span>&dash;</span>
+                    <input class ="panel__calendar-end" type="date" name="dateSelector">
+                </div>
+                
+                <div class="panel__filter">
+                    <!-- Here we have our filters for filtering certain images -->
                 </div>
             </div>
-            
-            <div class="panel__filter">
-                <!-- Here we have our filters for filtering certain images -->
-            </div>
-        </div>
-        <!-- Control end -->
+            <!-- Control end -->
 
-        <!-- Gallery start -->
-        <div class="gallery"></div>
-        <!-- Gallery end -->
+            <!-- Gallery start -->
+            <div class="gallery"></div>
+            <!-- Gallery end -->
+        </div>
     </div>
-    <script type="module" src="./assets/scripts/script.js" defer=""></script>
 </body>
 </html>

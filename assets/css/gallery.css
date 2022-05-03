@@ -1,12 +1,13 @@
 .gallery {
     display:flex;
     flex-wrap: wrap;
+    flex: 100%;
 }
 
 .item {
-    flex: 30%;
-    max-width: 30%;
-    margin: 10px;
+    flex: calc(33.3% - 20px);
+    max-width: calc(33.3% - 20px);
+    margin: 0 10px 10px 10px;
 }
 
 .item--title {
@@ -15,7 +16,7 @@
     padding: 4px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    color: white;
+    color: var(--light-blue);
     font-size: 24px;
     white-space: pre;
 }
@@ -34,7 +35,7 @@
 }
 
 .item--information {
-    color: white;
+    color: var(--light-blue);
 }
 
 .item--information-data {
@@ -79,6 +80,8 @@
 
     .item--title {
         font-size: 20px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
     }
 }
 
@@ -86,13 +89,13 @@
     .item {
         flex: 100%;
         max-width: 100%;
-        margin: 5px;
+        margin: 10px 0;
         padding: 0px;
     }
 
+
     .item--title {
-        border-top-left-radius: 0px;
-        border-top-right-radius: 0px;
+
         white-space: inherit;
     }
 }
