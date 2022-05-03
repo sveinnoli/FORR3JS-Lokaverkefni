@@ -1,13 +1,48 @@
 "use strict";
-import { data } from "../data/data.js" // replace with json request later
+
+// Config file for sorting the images
+const sortConfig = {
+    "sort" : {
+        "orderBy" : descendingOrder,
+        "sortBy" : "price",
+    },
+    
+    "filter" : {
+        "requires" : [],
+        "query" : "",
+        "searchBy" : "author"
+    },
+
+    "slider" : {
+        "min" : 0,
+        "max" : 0,
+        "crMin" : 0,
+        "crMax" : 0,
+    },
+
+    "calendar" : {
+        "dateMin" : "",
+        "dateMax" : "",
+        "crMin" : "",
+        "crMax" : "",
+    }
+}
+
+// Local request to json file
+let data;
+await fetch("./assets/data/data.json").then(result => {
+    return result.json()
+}).then(result => {
+    data = result;
+})
 
 function startup() {
     activeData = sort(data, sortConfig.sort.orderBy);
-    createTemplate(activeData);
     setMinMax(activeData);
     setupSlider();
     fillSlider();
     setupCalendar(data);
+    createTemplate(activeData);
 }
 
 function setupSlider() {
@@ -42,9 +77,8 @@ function setupCalendar(data) {
             maxDate = currDate;
         }
     }
-
-    let min = minDate.toLocaleDateString().replace(/\//g, "-").split("-").reverse().join("-");
-    let max = maxDate.toLocaleDateString().replace(/\//g, "-").split("-").reverse().join("-");
+    let min = minDate.toISOString().split("T")[0];
+    let max = maxDate.toISOString().split("T")[0];
     sortConfig.calendar.dateMin = min;
     sortConfig.calendar.dateMax = max;
 
@@ -72,13 +106,14 @@ function filter(data) {
         })
     }
 
+    // Filter by calendar dates
     if (sortConfig.calendar.crMin && sortConfig.calendar.crMax) {
         let dateMin = new Date(sortConfig.calendar.crMin);
         let dateMax = new Date(sortConfig.calendar.crMax);
         for (let i = 0; i < temp.length; i++) {
-            temp = temp.filter(item => {
+            temp = temp.filter(item => {                
                 let date = new Date(item.image.date);
-                return (dateMin.getTime() < date.getTime() && date.getTime() < dateMax.getTime());
+                return (dateMin.getTime() <= date.getTime() && date.getTime() <= dateMax.getTime());
             })
         }
     }
@@ -185,33 +220,8 @@ function createTemplate(data) {
 // Used to keep track of how the current images should be filtered/ordered
 let activeData = [...data]; // This is the modified data (filters, sorting, etc)
 
+// Images
 const gallery = document.querySelector(".gallery");
-const sortConfig = {
-    "sort" : {
-        "orderBy" : descendingOrder,
-        "sortBy" : "price",
-    },
-    
-    "filter" : {
-        "requires" : [],
-        "query" : "",
-        "searchBy" : "author"
-    },
-
-    "slider" : {
-        "min" : 0,
-        "max" : 0,
-        "crMin" : 0,
-        "crMax" : 0,
-    },
-
-    "calendar" : {
-        "dateMin" : "",
-        "dateMax" : "",
-        "crMin" : "",
-        "crMax" : "",
-    }
-}
 
 // Slider 
 const valueMin = document.querySelector(".value-min");
@@ -269,7 +279,7 @@ searchBar.addEventListener("input", (e) => {
 calendarStart.addEventListener("change", (e) => {
     if (e.target.value) {
         let date = new Date(e.target.value)
-        sortConfig.calendar.crMin = date.toLocaleDateString().replace(/\//g, "-").split("-").reverse().join("-");
+        sortConfig.calendar.crMin = date.toISOString().split("T")[0];
     } else {
         sortConfig.calendar.crMin = e.target.value;
     }
@@ -279,7 +289,7 @@ calendarStart.addEventListener("change", (e) => {
 calendarEnd.addEventListener("change", (e) => {
     if (e.target.value) {
         let date = new Date(e.target.value)
-        sortConfig.calendar.crMax = date.toLocaleDateString().replace(/\//g, "-").split("-").reverse().join("-");
+        sortConfig.calendar.crMax = date.toISOString().split("T")[0];
     } else {
         sortConfig.calendar.crMax = e.target.value;
     }

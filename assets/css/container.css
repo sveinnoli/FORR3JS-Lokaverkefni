@@ -1,7 +1,7 @@
 .container {
     width: auto;
     padding: var(--container-padding);
-    margin: 50px auto;
+    margin: 10px auto 0;
     min-height: 100vh;
 }
 
