@@ -25,6 +25,11 @@ const sortConfig = {
         "dateMax" : "",
         "crMin" : "",
         "crMax" : "",
+    },
+
+    "paginator" : {
+        "itemsPerPage" : 6,
+        "currentPage" : 1,
     }
 }
 
@@ -37,12 +42,14 @@ await fetch("./assets/data/data.json").then(result => {
 })
 
 function startup() {
-    activeData = sort(data, sortConfig.sort.orderBy);
+    data = sort(data, sortConfig.sort.orderBy);
+    activeData = [...data];
     setMinMax(activeData);
     setupSlider();
     fillSlider();
     setupCalendar(data);
     createTemplate(activeData);
+    updatePaginator(1);
 }
 
 function setupSlider() {
@@ -87,6 +94,44 @@ function setupCalendar(data) {
     calendarEnd.min = min;
     calendarEnd.max = max;
 }
+
+function updatePaginator(pageNr) {
+    pageNr = 0
+    let images = document.querySelectorAll(".item");
+    let startShow = pageNr*sortConfig.paginator.itemsPerPage;
+    let endShow = startShow + sortConfig.paginator.itemsPerPage;
+    if (endShow > images.length) {
+        endShow = images.length;
+    }
+
+
+    let startHide = (sortConfig.paginator.currentPage-1)*sortConfig.paginator.itemsPerPage;
+    let endHide;
+    console.log(startHide);
+    sortConfig.paginator.currentPage = pageNr; 
+}
+
+function paginatorTemplate() {
+    console.log(paginator);
+    let fragment = new DocumentFragment();
+    fragment.innerHTML = "";
+
+
+    paginator.innerHTML = fragment.innerHTML;
+}
+
+
+
+function updateData() {
+    // Temp solution to only update when list size changes, could cause issues
+    let len = activeData.length;
+    activeData = filter(data);
+    if (len !== activeData.length && activeData) {
+        createTemplate(activeData);
+    }
+    // Check if length is 0 if so return error msg
+}
+
 
 // Filters the data 
 function filter(data) {
@@ -152,15 +197,6 @@ function descendingOrder(val1, val2) {
     return val1 > val2;
 }
 
-function updateData() {
-    // Temp solution to only update when list size changes, could cause issues
-    let len = activeData.length;
-    activeData = filter(data);
-    if (len !== activeData.length && activeData) {
-        createTemplate(activeData);
-    }
-    // Check if length is 0 if so return error msg
-}
 
 function sort(data, comparison) {
     // Best case O(n) worst case O(n^2)
@@ -193,7 +229,7 @@ function createTemplate(data) {
             if (item.image.url) {
                 let date = new Date(item.image.date);
                 fragment.innerHTML += ( // Replace with dom methods later
-                `<div class="item">
+                `<div class="item" hidden>
                         <div class="item--title">${item.image.name}</div>
                         <div class="item--image-container"><img src="${item.image.url}" class="item--image"></div>
                         <div class="item--information">
@@ -222,6 +258,9 @@ let activeData = [...data]; // This is the modified data (filters, sorting, etc)
 
 // Images
 const gallery = document.querySelector(".gallery");
+
+// Paginator
+const paginator = document.querySelector(".paginator");
 
 // Slider 
 const valueMin = document.querySelector(".value-min");
@@ -281,7 +320,7 @@ calendarStart.addEventListener("change", (e) => {
         let date = new Date(e.target.value)
         sortConfig.calendar.crMin = date.toISOString().split("T")[0];
     } else {
-        sortConfig.calendar.crMin = e.target.value;
+        sortConfig.calendar.crMin = "";
     }
     updateData();
 })
@@ -291,9 +330,18 @@ calendarEnd.addEventListener("change", (e) => {
         let date = new Date(e.target.value)
         sortConfig.calendar.crMax = date.toISOString().split("T")[0];
     } else {
-        sortConfig.calendar.crMax = e.target.value;
+        sortConfig.calendar.crMax = "";
     }
     updateData();
 })
+
+// Paginator
+paginator.addEventListener("click", (e) => {
+    if (e.target.classList.contains("paginator__item-button")) {
+        // Button clicked
+        updatePaginator(parseInt(e.target.textContent));
+    }
+})
+
 
 startup(); // Script is async will run once dom content is loaded

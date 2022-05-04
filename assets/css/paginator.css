@@ -1,0 +1,35 @@
+.paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginator__item {
+    margin: 0 5px;
+    position: relative;
+}
+
+/* Paginator Button */
+.paginator__item-button {
+    appearance: none;
+    padding: 8px 16px;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid black;
+    background: var(--purple-linear-color);
+    transition: transform 0.8s linear;
+}
+
+.paginator__item-button:hover {
+    opacity: 0.8;
+}
+
+.paginator__item-button:active {
+    transform: scale(1.2);
+}
+
+.paginator__active-item > *:first-child {
+    background: var(--selected-color) !important;
+    border: 2px solid black;
+    transform: scale(1.1);
+}

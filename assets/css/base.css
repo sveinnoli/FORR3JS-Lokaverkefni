@@ -10,7 +10,7 @@
     --purple-linear-color: linear-gradient(to top right, rgba(22,22,22,0.8), 50%, rgba(82,42,97,0.8));
     
     
-
+    --selected-color: #0c98ee;
     --xxl-breakpoint: 1920px;
     --xl-breakpoint: 1620px;
     --lg-breakpoint: 1300px;
@@ -24,6 +24,8 @@
     padding: 0;
     margin: 0;
 }
+
+[hidden] {display: none !important;}
 
 body {
     background-image: url("/assets/images/mainBackground.svg");
@@ -42,6 +44,11 @@ img {
     width: 100%;
     height: 100%;
     display: block;
+}
+
+button {
+    appearance: none;
+    color: inherit;
 }
 
 .invisible {

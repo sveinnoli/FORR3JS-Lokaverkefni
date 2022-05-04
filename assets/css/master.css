@@ -1,4 +1,5 @@
 @import "base.css";
 @import "container.css";
 @import "gallery.css";
-@import "control_panel.css"
+@import "control_panel.css";
+@import "paginator.css";
