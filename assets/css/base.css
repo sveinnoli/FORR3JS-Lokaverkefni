@@ -9,6 +9,7 @@
     --purple-color-1: #9147FF;
     --purple-linear-color: linear-gradient(to top right, rgba(22,22,22,0.8), 50%, rgba(82,42,97,0.8));
     
+    --backup-bg: #cedfe9;
     
     --selected-color: #0c98ee;
     --xxl-breakpoint: 1920px;
@@ -29,7 +30,7 @@
 
 body {
     background-image: url("/assets/images/mainBackground.svg");
-    background-color: var(--main-bg-color);
+    background-color: var(--backup-bg);
     background-position: center;
     background-repeat: repeat;
     background-size: cover;
