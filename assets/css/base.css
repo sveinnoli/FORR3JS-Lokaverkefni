@@ -28,7 +28,7 @@
 [hidden] {display: none !important;}
 
 body {
-    background-image: url("assets/images/mainBackground.svg");
+    background-image: url("./assets/images/mainBackground.svg");
     background-color: var(--main-bg-color);
     background-position: center;
     background-repeat: repeat;
