@@ -96,7 +96,11 @@ function setupCalendar(data) {
 }
 
 function updatePaginator(pageNr) {
-    pageNr = 0
+    console.log(paginatorButtons)
+    paginatorButtons[sortConfig.paginator.currentPage-1].classList.remove("paginator__active-item")
+    paginatorButtons[pageNr-1].classList.add("paginator__active-item")
+    
+    
     let images = document.querySelectorAll(".item");
     let startShow = pageNr*sortConfig.paginator.itemsPerPage;
     let endShow = startShow + sortConfig.paginator.itemsPerPage;
@@ -104,10 +108,22 @@ function updatePaginator(pageNr) {
         endShow = images.length;
     }
 
-
-    let startHide = (sortConfig.paginator.currentPage-1)*sortConfig.paginator.itemsPerPage;
-    let endHide;
-    console.log(startHide);
+    for (let i = startShow; i < endShow; i++) {
+        images[i].hidden = false;
+    }
+    if (pageNr !== sortConfig.paginator.currentPage) {
+            
+        let startHide = (sortConfig.paginator.currentPage-1)*sortConfig.paginator.itemsPerPage;
+        let endHide = startHide + sortConfig.paginator.itemsPerPage;
+        console.log(startHide, endHide, startShow, endShow);
+        if (endHide > images.length) {
+            endHide = images.length;
+        }
+        
+        for (let i = startHide; i < endHide; i++) {
+            images[i].hidden = true;
+        }
+    }
     sortConfig.paginator.currentPage = pageNr; 
 }
 
@@ -261,6 +277,7 @@ const gallery = document.querySelector(".gallery");
 
 // Paginator
 const paginator = document.querySelector(".paginator");
+const paginatorButtons = document.querySelectorAll(".paginator__item");
 
 // Slider 
 const valueMin = document.querySelector(".value-min");
@@ -340,6 +357,7 @@ paginator.addEventListener("click", (e) => {
     if (e.target.classList.contains("paginator__item-button")) {
         // Button clicked
         updatePaginator(parseInt(e.target.textContent));
+        window.scrollTo(0, 0)
     }
 })
 
