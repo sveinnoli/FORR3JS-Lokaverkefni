@@ -39,6 +39,8 @@ await fetch("./assets/data/data.json").then(result => {
     return result.json()
 }).then(result => {
     data = result;
+}).catch(err => {
+    console.log("Image assets not found: ", err)
 })
 
 function startup() {
@@ -49,7 +51,7 @@ function startup() {
     fillSlider();
     setupCalendar(data);
     createTemplate(activeData);
-    updatePaginator(1);
+    paginatorTemplate();
 }
 
 function setupSlider() {
@@ -96,13 +98,14 @@ function setupCalendar(data) {
 }
 
 function updatePaginator(pageNr) {
-    console.log(paginatorButtons)
-    paginatorButtons[sortConfig.paginator.currentPage-1].classList.remove("paginator__active-item")
-    paginatorButtons[pageNr-1].classList.add("paginator__active-item")
-    
-    
     let images = document.querySelectorAll(".item");
-    let startShow = pageNr*sortConfig.paginator.itemsPerPage;
+    if (paginatorButtons.length > 0) {
+        paginatorButtons[sortConfig.paginator.currentPage-1].classList.remove("paginator__active-item")
+        paginatorButtons[pageNr-1].classList.add("paginator__active-item")
+    }
+
+    // Show new images
+    let startShow = (pageNr-1)*sortConfig.paginator.itemsPerPage;
     let endShow = startShow + sortConfig.paginator.itemsPerPage;
     if (endShow > images.length) {
         endShow = images.length;
@@ -111,11 +114,11 @@ function updatePaginator(pageNr) {
     for (let i = startShow; i < endShow; i++) {
         images[i].hidden = false;
     }
+
+    // Hide previous images
     if (pageNr !== sortConfig.paginator.currentPage) {
-            
         let startHide = (sortConfig.paginator.currentPage-1)*sortConfig.paginator.itemsPerPage;
         let endHide = startHide + sortConfig.paginator.itemsPerPage;
-        console.log(startHide, endHide, startShow, endShow);
         if (endHide > images.length) {
             endHide = images.length;
         }
@@ -128,12 +131,21 @@ function updatePaginator(pageNr) {
 }
 
 function paginatorTemplate() {
-    console.log(paginator);
+    let numPages = Math.ceil(activeData.length/sortConfig.paginator.itemsPerPage);
     let fragment = new DocumentFragment();
     fragment.innerHTML = "";
-
-
+    if (activeData.length > sortConfig.paginator.itemsPerPage) {
+        for (let i = 0; i < numPages; i++) {
+            fragment.innerHTML += `
+                <div class="paginator__item">
+                    <button class="paginator__item-button">${i+1}</button>
+                </div>
+            `;
+        }
+    }
     paginator.innerHTML = fragment.innerHTML;
+    paginatorButtons = document.querySelectorAll(".paginator__item");
+    updatePaginator(sortConfig.paginator.currentPage);
 }
 
 
@@ -144,6 +156,7 @@ function updateData() {
     activeData = filter(data);
     if (len !== activeData.length && activeData) {
         createTemplate(activeData);
+        paginatorTemplate();
     }
     // Check if length is 0 if so return error msg
 }
@@ -266,6 +279,7 @@ function createTemplate(data) {
             }
         })
         gallery.innerHTML = fragment.innerHTML;
+        updatePaginator(1);
 }
 
 
@@ -277,7 +291,7 @@ const gallery = document.querySelector(".gallery");
 
 // Paginator
 const paginator = document.querySelector(".paginator");
-const paginatorButtons = document.querySelectorAll(".paginator__item");
+let paginatorButtons = document.querySelectorAll(".paginator__item");
 
 // Slider 
 const valueMin = document.querySelector(".value-min");

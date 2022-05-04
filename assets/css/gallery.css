@@ -1,7 +1,11 @@
+.gallery-wrapper {
+    
+    flex: 100%;
+}
+
 .gallery {
     display:flex;
     flex-wrap: wrap;
-    flex: 100%;
 }
 
 .item {
