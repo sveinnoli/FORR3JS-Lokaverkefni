@@ -319,7 +319,7 @@ sliderMin.addEventListener("input", (e) => {
     
 })
 
-sliderMin.addEventListener("change", () => {
+sliderMin.addEventListener("input", () => {
     sortConfig.slider.crMin = sliderMin.value;
     updateData();
 })
@@ -332,7 +332,7 @@ sliderMax.addEventListener("input", (e) => {
     valueMax.textContent = e.target.value; 
 })
 
-sliderMax.addEventListener("change", () => {
+sliderMax.addEventListener("input", () => {
     sortConfig.slider.crMax = sliderMax.value;
     updateData();
 })
