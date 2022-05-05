@@ -86,12 +86,52 @@ function startup() {
 function updateData() {
     // Temp solution to only update when list size changes, could cause issues
     let len = activeData.length;
-    activeData = filter(data);
+    filter(data);
     if (len !== activeData.length && activeData) {
         createTemplate(activeData);
         paginatorTemplate();
     }
     // Check if length is 0 if so return error msg
+}
+
+// Filters the data 
+function filter(data) {
+    let temp = [];
+    let activeElems = document.querySelectorAll(".item");
+
+    // Use for loop to optimise performance
+    for (let i = 0; i < data.length; i++) {
+        if (data[i].image.price >= sortConfig.slider.crMin && data[i].image.price <= sortConfig.slider.crMax) {
+            activeElems[i].hidden = false;
+        } else {
+            activeElems[i].hidden = true;
+        }
+    }
+
+    if (sortConfig.filter.query.length > 0) {
+        let regex = new RegExp(sortConfig.filter.query, 'gi'); // Global && case insensitive flag
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].item.image[sortConfig.filter.searchBy].match(regex)) {
+                activeElems.hidden = false;
+            } else {
+                activeElems.hidden = true;
+            }
+        }
+    }
+
+    // Filter by calendar dates
+    if (sortConfig.calendar.crMin && sortConfig.calendar.crMax) {
+        let dateMin = new Date(sortConfig.calendar.crMin);
+        let dateMax = new Date(sortConfig.calendar.crMax);
+        for (let i = 0; i < temp.length; i++) {
+            temp = temp.filter(item => {                
+                let date = new Date(item.image.date);
+                return (dateMin.getTime() <= date.getTime() && date.getTime() <= dateMax.getTime());
+            })
+        }
+    }
+
+    return temp;
 }
 
 function setupSlider(data) {
@@ -154,13 +194,6 @@ function setupCalendar(data) {
     calendarEnd.max = max;
 }
 
-function getActiveImages() {
-    let images = document.querySelectorAll(".item");
-    return activeData.filter(item => {
-        return (!item.hidden);
-    })
-}
-
 function updatePaginator(pageNr) {
     let images = document.querySelectorAll(".item");
     if (paginatorButtons.length > 0) {
@@ -211,41 +244,6 @@ function paginatorTemplate() {
     paginatorButtons = document.querySelectorAll(".paginator__item");
     updatePaginator(sortConfig.paginator.currentPage);
 }
-
-
-// Filters the data 
-function filter(data) {
-    let temp = [];
-
-    // Use for loop to optimise performance
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].image.price >= sortConfig.slider.crMin && data[i].image.price <= sortConfig.slider.crMax) {
-            temp.push(data[i]);
-        }
-    }
-
-    if (sortConfig.filter.query.length > 0) {
-        let regex = new RegExp(sortConfig.filter.query, 'gi'); // Global && case insensitive flag
-        temp = temp.filter(item => {
-            return item.image[sortConfig.filter.searchBy].match(regex);
-        })
-    }
-
-    // Filter by calendar dates
-    if (sortConfig.calendar.crMin && sortConfig.calendar.crMax) {
-        let dateMin = new Date(sortConfig.calendar.crMin);
-        let dateMax = new Date(sortConfig.calendar.crMax);
-        for (let i = 0; i < temp.length; i++) {
-            temp = temp.filter(item => {                
-                let date = new Date(item.image.date);
-                return (dateMin.getTime() <= date.getTime() && date.getTime() <= dateMax.getTime());
-            })
-        }
-    }
-
-    return temp;
-}
-
 
 
 function fillSlider() {
