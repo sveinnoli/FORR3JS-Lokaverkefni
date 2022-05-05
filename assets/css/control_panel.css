@@ -25,6 +25,10 @@
     outline: none !important;
     padding: 5px;
     border: 2px solid black;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    margin: 0 10px;
 }
 
 .panel__search input:focus {
@@ -126,7 +130,7 @@ input[type="range"]::-ms-thumb {
 
 .range__values {
     background: var(--purple-linear-color);
-    color: white;
+    color: goldenrod;
     padding: 3px;
     font-size: 14px;
     font-weight: bold;
@@ -141,6 +145,10 @@ input[type="range"]::-ms-thumb {
     justify-content: center;
     align-items: center;
     padding: 5px;
+}
+
+.panel__calendar input {
+    padding: 2px;
 }
 
 

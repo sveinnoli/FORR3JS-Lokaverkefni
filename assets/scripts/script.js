@@ -47,7 +47,6 @@ await fetch("./assets/data/data.json").then(result => {
 
 
 // Used to keep track of how the current images should be filtered/ordered
-let activeData; // This is the modified data (filters, sorting, etc)
 let imageElems = [];    // Keeps track of all current images on the page
 let activeImages = [];  // Keeps track of all the pages that passed filtering
 
@@ -76,16 +75,15 @@ const calendarEnd = document.querySelector(".panel__calendar-end");
 
 function startup() {
     data = sort(data, sortConfig.sort.orderBy);
-    activeData = [...data];         
-    setupSlider(activeData);        // Initializes the slider
-    setupCalendar(activeData);      // Initializes the calendar
-    createTemplate(activeData);     // Creates images
+    setupSlider(data);        // Initializes the slider
+    setupCalendar(data);      // Initializes the calendar
+    createTemplate(data);     // Creates images
     updateData();                   // Updates template and filter
 }
 
 
 function updateData() {
-    filter(activeData);
+    filter(data);
     paginatorTemplate();
 }
 
@@ -132,7 +130,6 @@ function filter(data) {
                 rejected.add(i);
             }
         }
-
     }
     
     // Takes the difference between the two sets and applies hidden to those who all filters agree upon 
@@ -243,6 +240,7 @@ function updatePaginator(pageNr) {
 function paginatorTemplate() {
     let numPages = Math.ceil(activeImages.length/sortConfig.paginator.itemsPerPage);
     let fragment = new DocumentFragment();
+    
     fragment.innerHTML = "";
     if (activeImages.length > sortConfig.paginator.itemsPerPage) {
         for (let i = 0; i < numPages; i++) {

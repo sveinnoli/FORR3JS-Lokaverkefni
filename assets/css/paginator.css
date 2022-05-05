@@ -2,11 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     margin: 5px 0 10px;
 }
 
 .paginator__item {
-    margin: 0 5px;
+    margin: 5px 5px;
     position: relative;
 }
 
