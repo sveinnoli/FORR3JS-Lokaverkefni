@@ -33,6 +33,8 @@ const sortConfig = {
     }
 }
 
+
+
 // Local request to json file
 let data;
 await fetch("./assets/data/data.json").then(result => {
@@ -43,18 +45,73 @@ await fetch("./assets/data/data.json").then(result => {
     console.log("Image assets not found: ", err)
 })
 
+
+// Used to keep track of how the current images should be filtered/ordered
+let activeData; // This is the modified data (filters, sorting, etc)
+
+// Images
+const gallery = document.querySelector(".gallery");
+
+// Paginator
+const paginator = document.querySelector(".paginator");
+let paginatorButtons = document.querySelectorAll(".paginator__item");
+
+// Slider 
+const valueMin = document.querySelector(".value-min");
+const valueMax = document.querySelector(".value-max");
+const sliderMin = document.querySelector(".slider-min");
+const sliderMax = document.querySelector(".slider-max");
+const sliderTrack = document.querySelector(".range__slider-track");
+const sliderBackgroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--purple-color-1');
+let sliderStep;
+
+// Searchbar
+const searchBar = document.querySelector(".search");
+
+// Calendar
+const calendarStart = document.querySelector(".panel__calendar-start");
+const calendarEnd = document.querySelector(".panel__calendar-end");
+
 function startup() {
     data = sort(data, sortConfig.sort.orderBy);
     activeData = [...data];
-    setMinMax(activeData);
-    setupSlider();
+    setupSlider(activeData);
     fillSlider();
     setupCalendar(data);
-    createTemplate(activeData);
-    paginatorTemplate();
+    createTemplate(activeData);     // Creates images
+    paginatorTemplate();            // Creates paginator template
 }
 
-function setupSlider() {
+
+function updateData() {
+    // Temp solution to only update when list size changes, could cause issues
+    let len = activeData.length;
+    activeData = filter(data);
+    if (len !== activeData.length && activeData) {
+        createTemplate(activeData);
+        paginatorTemplate();
+    }
+    // Check if length is 0 if so return error msg
+}
+
+function setupSlider(data) {
+    // Sets min-max for slider
+    let min = data[0].image.price;
+    let max = data[0].image.price;
+    for (let i = 1; i < data.length; i++) {
+        if (data[i].image.price < min) {
+            min = data[i].image.price;
+        }
+        
+        if (data[i].image.price > max) {
+            max = data[i].image.price;
+        }
+    }
+    sortConfig.slider.min = min;
+    sortConfig.slider.max = max;
+
+
+    // Sets min-max and values for slider
     valueMin.textContent = sortConfig.slider.min;
     valueMax.textContent = sortConfig.slider.max;
     sliderMin.min = sortConfig.slider.min;
@@ -95,6 +152,13 @@ function setupCalendar(data) {
     calendarStart.max = max;
     calendarEnd.min = min;
     calendarEnd.max = max;
+}
+
+function getActiveImages() {
+    let images = document.querySelectorAll(".item");
+    return activeData.filter(item => {
+        return (!item.hidden);
+    })
 }
 
 function updatePaginator(pageNr) {
@@ -149,19 +213,6 @@ function paginatorTemplate() {
 }
 
 
-
-function updateData() {
-    // Temp solution to only update when list size changes, could cause issues
-    let len = activeData.length;
-    activeData = filter(data);
-    if (len !== activeData.length && activeData) {
-        createTemplate(activeData);
-        paginatorTemplate();
-    }
-    // Check if length is 0 if so return error msg
-}
-
-
 // Filters the data 
 function filter(data) {
     let temp = [];
@@ -195,22 +246,7 @@ function filter(data) {
     return temp;
 }
 
-// Sets min-max for slider
-function setMinMax(data) { 
-    let min = data[0].image.price;
-    let max = data[0].image.price;
-    for (let i = 1; i < data.length; i++) {
-        if (data[i].image.price < min) {
-            min = data[i].image.price;
-        }
-        
-        if (data[i].image.price > max) {
-            max = data[i].image.price;
-        }
-    }
-    sortConfig.slider.min = min;
-    sortConfig.slider.max = max;
-}
+
 
 function fillSlider() {
     let from = ((sliderMin.value-sortConfig.slider.min)/(sortConfig.slider.max-sortConfig.slider.min))*100;
@@ -257,7 +293,7 @@ function createTemplate(data) {
         data.map(item => {
             if (item.image.url) {
                 let date = new Date(item.image.date);
-                fragment.innerHTML += ( // Replace with dom methods later
+                fragment.innerHTML += ( 
                 `<div class="item" hidden>
                         <div class="item--title">${item.image.name}</div>
                         <div class="item--image-container"><img src="${item.image.url}" class="item--image"></div>
@@ -283,31 +319,7 @@ function createTemplate(data) {
 }
 
 
-// Used to keep track of how the current images should be filtered/ordered
-let activeData = [...data]; // This is the modified data (filters, sorting, etc)
 
-// Images
-const gallery = document.querySelector(".gallery");
-
-// Paginator
-const paginator = document.querySelector(".paginator");
-let paginatorButtons = document.querySelectorAll(".paginator__item");
-
-// Slider 
-const valueMin = document.querySelector(".value-min");
-const valueMax = document.querySelector(".value-max");
-const sliderMin = document.querySelector(".slider-min");
-const sliderMax = document.querySelector(".slider-max");
-const sliderTrack = document.querySelector(".range__slider-track");
-const sliderBackgroundColor = window.getComputedStyle(document.documentElement).getPropertyValue('--purple-color-1');
-let sliderStep;
-
-// Searchbar
-const searchBar = document.querySelector(".search");
-
-// Calendar
-const calendarStart = document.querySelector(".panel__calendar-start");
-const calendarEnd = document.querySelector(".panel__calendar-end");
 
 // Slider event handler
 sliderMin.addEventListener("input", (e) => {
@@ -371,7 +383,7 @@ paginator.addEventListener("click", (e) => {
     if (e.target.classList.contains("paginator__item-button")) {
         // Button clicked
         updatePaginator(parseInt(e.target.textContent));
-        window.scrollTo(0, 0)
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 })
 
