@@ -42,7 +42,7 @@ await fetch("./assets/data/data.json").then(result => {
 }).then(result => {
     data = result;
 }).catch(err => {
-    console.error("Image assets not found: ", err)
+    console.error("Image assets not found: %c(╯°□°）╯︵ ┻━┻", "font-size: 20px;", err)
 })
 
 
