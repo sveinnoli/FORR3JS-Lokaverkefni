@@ -42,12 +42,14 @@ await fetch("./assets/data/data.json").then(result => {
 }).then(result => {
     data = result;
 }).catch(err => {
-    console.log("Image assets not found: ", err)
+    console.error("Image assets not found: ", err)
 })
 
 
 // Used to keep track of how the current images should be filtered/ordered
 let activeData; // This is the modified data (filters, sorting, etc)
+let imageElems = [];    // Keeps track of all current images on the page
+let activeImages = [];  // Keeps track of all the pages that passed filtering
 
 // Images
 const gallery = document.querySelector(".gallery");
@@ -74,64 +76,71 @@ const calendarEnd = document.querySelector(".panel__calendar-end");
 
 function startup() {
     data = sort(data, sortConfig.sort.orderBy);
-    activeData = [...data];
-    setupSlider(activeData);
-    fillSlider();
-    setupCalendar(data);
+    activeData = [...data];         
+    setupSlider(activeData);        // Initializes the slider
+    setupCalendar(activeData);      // Initializes the calendar
     createTemplate(activeData);     // Creates images
-    paginatorTemplate();            // Creates paginator template
+    updateData();                   // Updates template and filter
 }
 
 
 function updateData() {
-    // Temp solution to only update when list size changes, could cause issues
-    let len = activeData.length;
-    filter(data);
-    if (len !== activeData.length && activeData) {
-        createTemplate(activeData);
-        paginatorTemplate();
-    }
-    // Check if length is 0 if so return error msg
+    filter(activeData);
+    paginatorTemplate();
 }
 
 // Filters the data 
 function filter(data) {
-    let temp = [];
-    let activeElems = document.querySelectorAll(".item");
+    let accepted = new Set();
+    let rejected = new Set();
 
-    // Use for loop to optimise performance
+    imageElems.map(element => {
+        element.hidden = true;
+    })
+
+    // Filter by price range
     for (let i = 0; i < data.length; i++) {
         if (data[i].image.price >= sortConfig.slider.crMin && data[i].image.price <= sortConfig.slider.crMax) {
-            activeElems[i].hidden = false;
+            accepted.add(i);
         } else {
-            activeElems[i].hidden = true;
+            rejected.add(i);
         }
     }
 
+    // Filter by query
     if (sortConfig.filter.query.length > 0) {
         let regex = new RegExp(sortConfig.filter.query, 'gi'); // Global && case insensitive flag
         for (let i = 0; i < data.length; i++) {
-            if (data[i].item.image[sortConfig.filter.searchBy].match(regex)) {
-                activeElems.hidden = false;
+            if (data[i].image[sortConfig.filter.searchBy].match(regex)) {
+                accepted.add(i);
             } else {
-                activeElems.hidden = true;
+                rejected.add(i);
             }
         }
     }
+
 
     // Filter by calendar dates
     if (sortConfig.calendar.crMin && sortConfig.calendar.crMax) {
         let dateMin = new Date(sortConfig.calendar.crMin);
         let dateMax = new Date(sortConfig.calendar.crMax);
-        for (let i = 0; i < temp.length; i++) {
-            temp = temp.filter(item => {                
-                let date = new Date(item.image.date);
-                return (dateMin.getTime() <= date.getTime() && date.getTime() <= dateMax.getTime());
-            })
+        for (let i = 0; i < data.length; i++) {
+            let date = new Date(data[i].image.date);
+            if (dateMin.getTime() <= date.getTime() && date.getTime() <= dateMax.getTime()) {
+                accepted.add(i);
+            } else {
+                rejected.add(i);
+            }
         }
-    }
 
-    return temp;
+    }
+    
+    // Takes the difference between the two sets and applies hidden to those who all filters agree upon 
+    let showIdx = Array.from(new Set([...accepted].filter(elem => !rejected.has(elem))));
+    activeImages = [];
+    for(let i = 0; i < showIdx.length; i++) {
+        activeImages.push(imageElems[showIdx[i]]); 
+    }
 }
 
 function setupSlider(data) {
@@ -170,11 +179,13 @@ function setupSlider(data) {
     // Curr values used to filter
     sortConfig.slider.crMin = sliderMin.value;
     sortConfig.slider.crMax = sliderMax.value;
+    fillSlider();
 }
 
 function setupCalendar(data) {
     let minDate = new Date(data[0].image.date);
     let maxDate = new Date(data[0].image.date);
+    // Finds min && max dates
     for (let i = 1; i < data.length; i++) {
         let currDate = new Date(data[i].image.date);
         if (currDate.getTime() < minDate.getTime()) {
@@ -183,6 +194,7 @@ function setupCalendar(data) {
             maxDate = currDate;
         }
     }
+    
     let min = minDate.toISOString().split("T")[0];
     let max = maxDate.toISOString().split("T")[0];
     sortConfig.calendar.dateMin = min;
@@ -194,44 +206,45 @@ function setupCalendar(data) {
     calendarEnd.max = max;
 }
 
+// Updates the paginator when new filter is applied
 function updatePaginator(pageNr) {
-    let images = document.querySelectorAll(".item");
+
+    // Highlights currently active page-button in paginator
     if (paginatorButtons.length > 0) {
-        paginatorButtons[sortConfig.paginator.currentPage-1].classList.remove("paginator__active-item")
-        paginatorButtons[pageNr-1].classList.add("paginator__active-item")
+        paginatorButtons[sortConfig.paginator.currentPage-1].classList.remove("paginator__active-item");
+        paginatorButtons[pageNr-1].classList.add("paginator__active-item");
     }
 
-    // Show new images
+    // Show new activeImages
     let startShow = (pageNr-1)*sortConfig.paginator.itemsPerPage;
     let endShow = startShow + sortConfig.paginator.itemsPerPage;
-    if (endShow > images.length) {
-        endShow = images.length;
+    if (endShow > activeImages.length) {
+        endShow = activeImages.length;
     }
-
     for (let i = startShow; i < endShow; i++) {
-        images[i].hidden = false;
+        activeImages[i].hidden = false;
     }
 
-    // Hide previous images
+    // Hide previous activeImages
     if (pageNr !== sortConfig.paginator.currentPage) {
         let startHide = (sortConfig.paginator.currentPage-1)*sortConfig.paginator.itemsPerPage;
         let endHide = startHide + sortConfig.paginator.itemsPerPage;
-        if (endHide > images.length) {
-            endHide = images.length;
+        if (endHide > activeImages.length) {
+            endHide = activeImages.length;
         }
         
         for (let i = startHide; i < endHide; i++) {
-            images[i].hidden = true;
+            activeImages[i].hidden = true;
         }
     }
     sortConfig.paginator.currentPage = pageNr; 
 }
 
 function paginatorTemplate() {
-    let numPages = Math.ceil(activeData.length/sortConfig.paginator.itemsPerPage);
+    let numPages = Math.ceil(activeImages.length/sortConfig.paginator.itemsPerPage);
     let fragment = new DocumentFragment();
     fragment.innerHTML = "";
-    if (activeData.length > sortConfig.paginator.itemsPerPage) {
+    if (activeImages.length > sortConfig.paginator.itemsPerPage) {
         for (let i = 0; i < numPages; i++) {
             fragment.innerHTML += `
                 <div class="paginator__item">
@@ -313,6 +326,7 @@ function createTemplate(data) {
             }
         })
         gallery.innerHTML = fragment.innerHTML;
+        imageElems = [...document.querySelectorAll(".item")];
         updatePaginator(1);
 }
 
