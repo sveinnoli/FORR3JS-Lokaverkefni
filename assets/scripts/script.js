@@ -306,7 +306,7 @@ function createTemplate(data) {
                 fragment.innerHTML += ( 
                 `<div class="item" hidden>
                         <div class="item--title">${item.image.name}</div>
-                        <div class="item--image-container"><img src="${item.image.url}" class="item--image"></div>
+                        <div class="item--image-container"><img src="${item.image.url}" class="item--image" alt="${item.image.name}"></div>
                         <div class="item--information">
                             <div class="item--information-data">
                                 <p>Author</p>
