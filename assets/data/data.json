@@ -1,7 +1,7 @@
 [
    {
       "image":{
-         "url":"./assets/images/dos2.jpg",
+         "url":"./assets/images/dos2.webp",
          "name":"Divinity Original Sin ",
          "author":"Lucian",
          "price": 5000,
@@ -10,7 +10,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/nierautomata.jpg",
+         "url":"./assets/images/nierautomata.webp",
          "name":"Nier automata",
          "author":"2B",
          "price": 1000,
@@ -19,7 +19,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/witcher3medallion.jpg",
+         "url":"./assets/images/witcher3medallion.webp",
          "name":"Witcher 3 Medallion",
          "author":"Geralt",
          "price": 10000,
@@ -28,7 +28,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/cyberpunk.jpg",
+         "url":"./assets/images/cyberpunk.webp",
          "name":"Cyberpunk",
          "author":"Valerie",
          "price": 2500,
@@ -37,7 +37,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/witcher3.jpg",
+         "url":"./assets/images/witcher3.webp",
          "name":"Witcher",
          "author":"Dandelion",
          "price": 1450,
@@ -46,7 +46,7 @@
    }, 
    {
       "image":{
-         "url":"./assets/images/dos2.jpg",
+         "url":"./assets/images/dos2.webp",
          "name":"Divinity Original Sin ",
          "author":"Lucian",
          "price": 5000,
@@ -55,7 +55,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/nierautomata.jpg",
+         "url":"./assets/images/nierautomata.webp",
          "name":"Nier automata",
          "author":"2B",
          "price": 1000,
@@ -64,7 +64,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/witcher3medallion.jpg",
+         "url":"./assets/images/witcher3medallion.webp",
          "name":"Witcher 3 Medallion",
          "author":"Geralt",
          "price": 10000,
@@ -73,7 +73,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/cyberpunk.jpg",
+         "url":"./assets/images/cyberpunk.webp",
          "name":"Cyberpunk",
          "author":"Valerie",
          "price": 2500,
@@ -82,7 +82,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/witcher3.jpg",
+         "url":"./assets/images/witcher3.webp",
          "name":"Witcher",
          "author":"Dandelion",
          "price": 1450,
@@ -91,7 +91,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/dos2.jpg",
+         "url":"./assets/images/dos2.webp",
          "name":"Divinity Original Sin ",
          "author":"Lucian",
          "price": 5000,
@@ -100,7 +100,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/nierautomata.jpg",
+         "url":"./assets/images/nierautomata.webp",
          "name":"Nier automata",
          "author":"2B",
          "price": 1000,
@@ -109,7 +109,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/witcher3medallion.jpg",
+         "url":"./assets/images/witcher3medallion.webp",
          "name":"Witcher 3 Medallion",
          "author":"Geralt",
          "price": 10000,
@@ -118,7 +118,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/cyberpunk.jpg",
+         "url":"./assets/images/cyberpunk.webp",
          "name":"Cyberpunk",
          "author":"Valerie",
          "price": 2500,
@@ -127,7 +127,7 @@
    },
    {
       "image":{
-         "url":"./assets/images/witcher3.jpg",
+         "url":"./assets/images/witcher3.webp",
          "name":"Witcher",
          "author":"Dandelion",
          "price": 1450,
