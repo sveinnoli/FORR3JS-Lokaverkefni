@@ -138,6 +138,7 @@ function filter(data) {
     for(let i = 0; i < showIdx.length; i++) {
         activeImages.push(imageElems[showIdx[i]]); 
     }
+    sortConfig.paginator.currentPage = 1;
 }
 
 function setupSlider(data) {
