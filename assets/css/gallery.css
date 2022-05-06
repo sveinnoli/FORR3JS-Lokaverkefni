@@ -30,7 +30,7 @@
 }
 
 .item--image {
-    object-fit: cover;
+    object-fit: fill;
     position: absolute;
     border: 1px solid black;
 }
