@@ -330,27 +330,34 @@ function createTemplate(data) {
 }
 
 
-// Slider
-sliderMin.addEventListener("input", () => {
-    sortConfig.slider.crMin = sliderMin.value;
-    updateData();
+
+
+// Slider event handler
+sliderMin.addEventListener("input", (e) => {
     if (sliderMax.value - sliderMin.value <= sliderStep) {
         sliderMin.value = parseInt(sliderMax.value) - sliderStep;
     } 
     fillSlider();
     valueMin.textContent = e.target.value;
+    
 })
 
-
-
-sliderMax.addEventListener("input", () => {
-    sortConfig.slider.crMax = sliderMax.value;
+sliderMin.addEventListener("input", () => {
+    sortConfig.slider.crMin = sliderMin.value;
     updateData();
+})
+
+sliderMax.addEventListener("input", (e) => {
     if (sliderMax.value - sliderMin.value <= sliderStep) {
         sliderMax.value = parseInt(sliderMin.value) + sliderStep;
     } 
     fillSlider();
     valueMax.textContent = e.target.value; 
+})
+
+sliderMax.addEventListener("input", () => {
+    sortConfig.slider.crMax = sliderMax.value;
+    updateData();
 })
 
 
