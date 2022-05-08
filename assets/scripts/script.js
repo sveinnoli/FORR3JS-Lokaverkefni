@@ -133,7 +133,7 @@ function filter(data) {
     }
     
     // Takes the difference between the two sets and applies hidden to those who all filters agree upon 
-    let showIdx = Array.from(new Set([...accepted].filter(elem => !rejected.has(elem))));
+    let showIdx = [...accepted].filter(elem => !rejected.has(elem));
     activeImages = [];
     for(let i = 0; i < showIdx.length; i++) {
         activeImages.push(imageElems[showIdx[i]]); 
