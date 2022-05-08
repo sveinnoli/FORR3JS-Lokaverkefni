@@ -371,8 +371,13 @@ searchBar.addEventListener("input", (e) => {
 // Calendar
 calendarStart.addEventListener("change", (e) => {
     if (e.target.value) {
-        let date = new Date(e.target.value)
-        sortConfig.calendar.crMin = date.toISOString().split("T")[0];
+        let date = new Date(e.target.value);
+        if (date.getTime() > new Date(sortConfig.calendar.crMax).getTime()) {
+            sortConfig.calendar.crMin = sortConfig.calendar.crMax;
+            e.target.value = sortConfig.calendar.crMax;
+        } else {
+            sortConfig.calendar.crMin = date.toISOString().split("T")[0];
+        }
     } else {
         sortConfig.calendar.crMin = "";
     }
@@ -382,7 +387,12 @@ calendarStart.addEventListener("change", (e) => {
 calendarEnd.addEventListener("change", (e) => {
     if (e.target.value) {
         let date = new Date(e.target.value)
-        sortConfig.calendar.crMax = date.toISOString().split("T")[0];
+        if (date.getTime() < new Date(sortConfig.calendar.crMin).getTime()) {
+            sortConfig.calendar.crMax = sortConfig.calendar.crMin;
+            e.target.value = sortConfig.calendar.crMin;
+        } else {
+            sortConfig.calendar.crMax = date.toISOString().split("T")[0];
+        }
     } else {
         sortConfig.calendar.crMax = "";
     }
