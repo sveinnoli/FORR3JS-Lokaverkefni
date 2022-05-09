@@ -107,9 +107,9 @@ function filter(data) {
 
     // Filter by query
     if (sortConfig.filter.query.length > 0) {
-        let regex = new RegExp(sortConfig.filter.query, 'gi'); // Global && case insensitive flag
+        let regex = new RegExp(sortConfig.filter.query.trim(), 'gi'); // Global && case insensitive flag
         for (let i = 0; i < data.length; i++) {
-            if (data[i].image[sortConfig.filter.searchBy].match(regex)) {
+            if (data[i].image[sortConfig.filter.searchBy].trim().match(regex)) {
                 accepted.add(i);
             } else {
                 rejected.add(i);
