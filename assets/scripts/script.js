@@ -92,7 +92,7 @@ function filter(data) {
     let accepted = new Set();
     let rejected = new Set();
 
-    imageElems.map(element => {
+    activeImages.map(element => {
         element.hidden = true;
     })
 
